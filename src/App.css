@@ -1,0 +1,46 @@
+/* App.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fa;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2 {
+  font-weight: 600;
+}
+
+p {
+  color: #555;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* App.css */
+
+/* General desktop responsiveness */
+@media (min-width: 1024px) {
+  .container {
+    width: 80%;
+    max-width: 1400px;
+  }
+
+  body {
+    font-size: 16px;
+  }
+}

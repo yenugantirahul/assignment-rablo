@@ -1,0 +1,67 @@
+/* UserDetail.css */
+
+.user-detail {
+  padding: 60px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 100px 40px 60px rgba(1, 0, 0, 0.1);
+  width: 50%;
+  height: 400px;
+  margin: 0 auto;
+  text-align: left;
+  margin-left: 500px;
+}
+
+.user-detail:hover {
+  padding: 60px;
+  background-color: black;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 100px 40px 60px rgba(1, 0, 0, 0.1);
+  width: 60%;
+  height: 400px;
+  margin: 0 auto;
+  text-align: left;
+  margin-left: 500px;
+}
+
+.user-detail h2 {
+  font-size: 39px;
+  color: #333;
+}
+
+.user-detail h2:hover {
+  font-size: 39px;
+  color: white;
+}
+
+.user-detail p {
+  font-size: 30px;
+  color: #555;
+  margin: 8px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.user-detail p:hover {
+  font-size: 30px;
+  color: white;
+  margin: 8px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.user-detail strong {
+  font-weight: 700;
+}
+
+.user-detail a {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 16px;
+  color: "blue";
+}
+
+.user-detail a:hover {
+  text-decoration: underline;
+}

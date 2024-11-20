@@ -4,6 +4,7 @@
   padding: 20px;
   background-color: white;
   border-radius: 8px;
+  margin-left: auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -80,8 +81,9 @@ header p {
 /* Desktop responsiveness for Dashboard layout */
 @media (min-width: 1024px) {
   .dashboard {
-    padding: 40px;
-    margin: 20px 20px 20px 500px;
+    padding: 40px auto 0 auto;
+    margin-left: 0 auto 0 auto;
+
     max-width: 1500px;
   }
 

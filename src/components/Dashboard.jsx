@@ -5,45 +5,83 @@ import "../styles/Dashboard.css";
 
 const Dashboard = () => {
   const [users, setUsers] = useState([]);
-  const [searchId, setSearchId] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [searchId, setSearchId] = useState("");
   const [selectedUsers, setSelectedUsers] = useState([]);
 
+  // Use localStorage to persist deleted user IDs across page reloads
+  const [deletedIds, setDeletedIds] = useState(() => {
+    const savedDeletedIds = localStorage.getItem("deletedUserIds");
+    return savedDeletedIds ? JSON.parse(savedDeletedIds) : [];
+  });
+
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
-      .then((response) => {
-        setUsers(response.data);
-        setFilteredUsers(response.data);
-      })
-      .catch((error) => console.error("Error fetching users:", error));
-  }, []);
+    // Save deleted IDs to localStorage whenever they change
+    localStorage.setItem("deletedUserIds", JSON.stringify(deletedIds));
+  }, [deletedIds]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(
+          "https://jsonplaceholder.typicode.com/users"
+        );
+        // Completely filter out deleted users
+        const availableUsers = response.data.filter(
+          (user) => !deletedIds.includes(user.id)
+        );
+        setUsers(availableUsers);
+        setFilteredUsers(availableUsers);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchUsers();
+  }, [deletedIds]);
 
   const handleSearch = () => {
     if (searchId) {
-      const foundUser = users.filter((user) => user.id === parseInt(searchId));
-      setFilteredUsers(foundUser.length ? foundUser : []);
+      const searchResults = users.filter(
+        (user) => user.id === parseInt(searchId, 10)
+      );
+      setFilteredUsers(searchResults);
     } else {
       setFilteredUsers(users);
     }
   };
 
   const handleDelete = (id) => {
-    setFilteredUsers(filteredUsers.filter((user) => user.id !== id));
+    // Update deletedIds state
+    setDeletedIds((prevDeletedIds) => [...prevDeletedIds, id]);
+
+    // Remove the user from both users and filteredUsers
+    setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    setFilteredUsers((prevFilteredUsers) =>
+      prevFilteredUsers.filter((user) => user.id !== id)
+    );
   };
 
   const handleMultiDelete = () => {
-    setFilteredUsers(
-      filteredUsers.filter((user) => !selectedUsers.includes(user.id))
+    // Update deletedIds state
+    setDeletedIds((prevDeletedIds) => [...prevDeletedIds, ...selectedUsers]);
+
+    // Remove selected users from both users and filteredUsers
+    setUsers((prevUsers) =>
+      prevUsers.filter((user) => !selectedUsers.includes(user.id))
     );
+    setFilteredUsers((prevFilteredUsers) =>
+      prevFilteredUsers.filter((user) => !selectedUsers.includes(user.id))
+    );
+
+    // Clear selected users
     setSelectedUsers([]);
   };
 
   const handleSelect = (id) => {
-    setSelectedUsers((prev) =>
-      prev.includes(id)
-        ? prev.filter((selectedId) => selectedId !== id)
-        : [...prev, id]
+    setSelectedUsers((prevSelected) =>
+      prevSelected.includes(id)
+        ? prevSelected.filter((selectedId) => selectedId !== id)
+        : [...prevSelected, id]
     );
   };
 
@@ -56,7 +94,6 @@ const Dashboard = () => {
           delete options.
         </p>
       </header>
-
       <div className="search-bar">
         <input
           type="text"
@@ -66,13 +103,11 @@ const Dashboard = () => {
         />
         <button onClick={handleSearch}>Search</button>
       </div>
-
       <div className="multi-delete">
         <button onClick={handleMultiDelete} disabled={!selectedUsers.length}>
           Delete Selected
         </button>
       </div>
-
       <div className="user-list">
         {filteredUsers.length > 0 ? (
           filteredUsers.map((user) => (

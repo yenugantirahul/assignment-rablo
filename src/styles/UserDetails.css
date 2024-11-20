@@ -1,54 +1,31 @@
 /* UserDetail.css */
 
 .user-detail {
-  padding: 60px;
+  padding: 20px;
   background-color: white;
   border-radius: 8px;
-  box-shadow: 100px 40px 60px rgba(1, 0, 0, 0.1);
-  width: 50%;
-  height: 400px;
-  margin: 0 auto;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+  width: 400px; /* Adjusted for mobile */
+  max-width: 600px; /* Prevent excessive width on larger devices */
+  height: auto; /* Allow dynamic height */
+  margin: 20px auto; /* Centered on the screen */
   text-align: left;
-  margin-left: 500px;
-}
-
-.user-detail:hover {
-  padding: 60px;
-  background-color: black;
-  cursor: pointer;
-  border-radius: 8px;
-  box-shadow: 100px 40px 60px rgba(1, 0, 0, 0.1);
-  width: 60%;
-  height: 400px;
-  margin: 0 auto;
-  text-align: left;
-  margin-left: 500px;
+  margin-left: 600px;
 }
 
 .user-detail h2 {
-  font-size: 39px;
+  font-size: 28px; /* Smaller font size for mobile */
   color: #333;
-}
-
-.user-detail h2:hover {
-  font-size: 39px;
-  color: white;
+  margin-bottom: 16px;
 }
 
 .user-detail p {
-  font-size: 30px;
+  font-size: 18px; /* Adjusted for readability on smaller screens */
   color: #555;
   margin: 8px 0;
   display: flex;
-  gap: 10px;
-}
-
-.user-detail p:hover {
-  font-size: 30px;
-  color: white;
-  margin: 8px 0;
-  display: flex;
-  gap: 10px;
+  flex-direction: column; /* Stacked content for smaller screens */
+  gap: 4px;
 }
 
 .user-detail strong {
@@ -59,9 +36,31 @@
   display: inline-block;
   margin-top: 20px;
   font-size: 16px;
-  color: "blue";
+  color: blue;
 }
 
 .user-detail a:hover {
   text-decoration: underline;
+}
+
+/* Media query for mobile screens */
+@media (max-width: 768px) {
+  .user-detail {
+    padding: 15px;
+    width: 95%; /* More space for small screens */
+    margin: 10px 50px 10px 20px;
+  }
+
+  .user-detail h2 {
+    font-size: 24px; /* Even smaller for very narrow screens */
+  }
+
+  .user-detail p {
+    font-size: 16px; /* Smaller size for better readability */
+    gap: 2px;
+  }
+
+  .user-detail a {
+    font-size: 14px; /* Slightly reduced for mobile */
+  }
 }
